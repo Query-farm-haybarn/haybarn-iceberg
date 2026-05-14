@@ -1,0 +1,31 @@
+haybarn-iceberg
+===============
+
+This repository is a Haybarn build-fork of the DuckDB Iceberg extension
+(github.com/duckdb/duckdb-iceberg), maintained by Query Farm LLC.
+
+It is NOT affiliated with, sponsored by, maintained by, or endorsed by the
+DuckDB Foundation or DuckDB Labs.
+
+Purpose
+-------
+
+Haybarn (an independent derived distribution of DuckDB) rebuilds this extension
+from source against the Haybarn build of DuckDB and signs it with the Haybarn
+extension-signing key, so it can be served from the Haybarn extension
+repository. The extension source is otherwise unchanged from upstream.
+
+The extension is still named `iceberg` — it installs and loads exactly as
+upstream:
+
+    INSTALL iceberg;
+    LOAD iceberg;
+
+License
+-------
+
+This extension is distributed under the MIT License. The upstream license is
+preserved verbatim in the LICENSE file.
+
+DuckDB is a trademark of the DuckDB Foundation. The name "DuckDB" is used here
+only descriptively, to identify the upstream project this fork is derived from.
