@@ -5,15 +5,16 @@ on:
       explicit_checks:
         type: string
   repository_dispatch:
-  push:
-    branches:
-      - '**'
-      - '!main'
-      - '!feature'
-    paths-ignore:
-      - '**.md'
-      - '.github/workflows/**'
-      - '!.github/workflows/CodeQuality.yml'
+  # Haybarn: push trigger disabled — see core engine haybarn-extensions.yml.
+  # push:  #     branches:
+  #       - '**'
+  #       - '!main'
+  #       - '!feature'
+  #     paths-ignore:
+  #       - '**.md'
+  #       - '.github/workflows/**'
+  #       - '!.github/workflows/CodeQuality.yml'
+
 
   pull_request:
     types: [opened, reopened, ready_for_review]
