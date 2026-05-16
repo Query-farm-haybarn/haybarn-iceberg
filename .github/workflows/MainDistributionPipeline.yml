@@ -18,18 +18,18 @@ concurrency:
 # Pinned SHA of Query-farm-haybarn/haybarn-extension-ci-tools (haybarn branch).
 # Bump when picking up new ccache/vcpkg fixes from the fork.
 env:
-  HAYBARN_CI_TOOLS_REF: e5ff1a1b5ad5d24bd833c810befc1fcb58f429d7
+  HAYBARN_CI_TOOLS_REF: dc0cae2971be09896f7d66dd57c7481e074ce5e2
 
 jobs:
   duckdb-stable-build:
     name: Build extension binaries
-    uses: Query-farm-haybarn/haybarn-extension-ci-tools/.github/workflows/_extension_distribution.yml@e5ff1a1b5ad5d24bd833c810befc1fcb58f429d7
+    uses: Query-farm-haybarn/haybarn-extension-ci-tools/.github/workflows/_extension_distribution.yml@dc0cae2971be09896f7d66dd57c7481e074ce5e2
     secrets:
       vcpkg_token: ${{ secrets.HAYBARN_VCPKG_TOKEN }}
     with:
       extension_name: iceberg
       duckdb_version: d13a3403b3ded9035a4ee84e9601138670ae51b5
-      ci_tools_version: e5ff1a1b5ad5d24bd833c810befc1fcb58f429d7
+      ci_tools_version: dc0cae2971be09896f7d66dd57c7481e074ce5e2
       exclude_archs: 'windows_amd64_mingw'
       extra_toolchains: 'python3'
       override_duckdb_repository: 'https://github.com/Query-farm-haybarn/haybarn'
@@ -38,12 +38,12 @@ jobs:
   duckdb-stable-deploy:
     name: Deploy extension binaries
     needs: duckdb-stable-build
-    uses: Query-farm-haybarn/haybarn-extension-ci-tools/.github/workflows/_extension_deploy.yml@e5ff1a1b5ad5d24bd833c810befc1fcb58f429d7
+    uses: Query-farm-haybarn/haybarn-extension-ci-tools/.github/workflows/_extension_deploy.yml@dc0cae2971be09896f7d66dd57c7481e074ce5e2
     secrets: inherit
     with:
       extension_name: iceberg
       duckdb_version: d13a3403b3ded9035a4ee84e9601138670ae51b5
-      ci_tools_version: e5ff1a1b5ad5d24bd833c810befc1fcb58f429d7
+      ci_tools_version: dc0cae2971be09896f7d66dd57c7481e074ce5e2
       exclude_archs: 'windows_amd64_mingw'
       deploy_latest: ${{ startsWith(github.ref, 'refs/heads/v') || github.ref == 'refs/heads/haybarn' }}
       deploy_versioned: ${{ startsWith(github.ref, 'refs/heads/v') || github.ref == 'refs/heads/haybarn' }}
