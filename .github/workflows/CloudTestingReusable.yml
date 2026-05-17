@@ -41,6 +41,9 @@ defaults:
   run:
     shell: bash
 
+env:
+  X_VCPKG_ASSET_SOURCES: 'clear;x-azurl,https://haybarn-vcpkg-cache.rusty-bb6.workers.dev/assets/,,read'
+
 jobs:
   rest:
     name: Test against remote cloud catalogs
