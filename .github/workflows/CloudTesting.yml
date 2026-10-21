@@ -1,7 +1,7 @@
 name: Cloud functional tests
+# Haybarn: push/schedule triggers removed — this standalone test workflow doesn't gate any
+# production artifact; the core engine's haybarn-extensions.yml is the canonical builder.
 on:
-  schedule:
-    - cron:  '0 3 * * *' # runs at 3am every night
   workflow_dispatch:
     inputs:
       duckdb_ref:
@@ -52,6 +52,9 @@ concurrency:
 defaults:
   run:
     shell: bash
+
+env:
+  X_VCPKG_ASSET_SOURCES: 'clear;x-azurl,https://haybarn-vcpkg-cache.rusty-bb6.workers.dev/assets/,,read'
 
 jobs:
   s3tables:

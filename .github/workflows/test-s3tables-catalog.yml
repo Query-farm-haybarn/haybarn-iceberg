@@ -54,6 +54,9 @@ defaults:
   run:
     shell: bash
 
+env:
+  X_VCPKG_ASSET_SOURCES: 'clear;x-azurl,https://haybarn-vcpkg-cache.rusty-bb6.workers.dev/assets/,,read'
+
 jobs:
   test-s3tables:
     name: Test against S3 Tables catalog
@@ -119,7 +122,7 @@ jobs:
           evict-old-files: job
 
       - name: Build (release)
-        uses: duckdb/duckdb-ci/build-duckdb@main
+        uses: Query-farm-haybarn/haybarn-ci/build-duckdb@e0ad82dd40f1218f92e99adade6810c4c97b3279 # haybarn
         env:
           STATIC_LIBCPP: 1
           ENABLE_EXTENSION_AUTOLOADING: 1
