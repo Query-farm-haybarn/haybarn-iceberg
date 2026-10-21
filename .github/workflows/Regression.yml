@@ -1,4 +1,6 @@
 name: Regression
+# Haybarn: push/schedule triggers removed — this standalone test workflow doesn't gate any
+# production artifact; the core engine's haybarn-extensions.yml is the canonical builder.
 on:
   workflow_call:
     inputs:
@@ -15,9 +17,6 @@ on:
         description: 'Base hash'
         type: string
   repository_dispatch:
-  push:
-    branches-ignore:
-      - 'main'
   pull_request:
     types: [opened, reopened, ready_for_review, converted_to_draft, synchronize]
 
@@ -30,6 +29,7 @@ defaults:
     shell: bash
 
 env:
+  X_VCPKG_ASSET_SOURCES: 'clear;x-azurl,https://haybarn-vcpkg-cache.rusty-bb6.workers.dev/assets/,,read'
   GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   GIT_REF: ${{ inputs.git_ref != '' && inputs.git_ref || github.sha }}
   BASE_BRANCH: ${{ github.base_ref || 'main' }}
@@ -79,7 +79,7 @@ jobs:
           save: ${{ github.ref == 'refs/heads/main' || github.repository != 'duckdb/duckdb' }}
 
       - name: Build Benchmark (release)
-        uses: duckdb/duckdb-ci/build-duckdb@main
+        uses: Query-farm-haybarn/haybarn-ci/build-duckdb@e0ad82dd40f1218f92e99adade6810c4c97b3279 # haybarn
         env:
           STATIC_LIBCPP: 1
           ENABLE_EXTENSION_AUTOLOADING: 1
@@ -136,7 +136,7 @@ jobs:
           git submodule update --init --recursive
 
       - name: Build Base Benchmark (release)
-        uses: duckdb/duckdb-ci/build-duckdb@main
+        uses: Query-farm-haybarn/haybarn-ci/build-duckdb@e0ad82dd40f1218f92e99adade6810c4c97b3279 # haybarn
         env:
           STATIC_LIBCPP: 1
           ENABLE_EXTENSION_AUTOLOADING: 1
